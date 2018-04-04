@@ -9,5 +9,5 @@ public interface Repository {
 
     void remove(Ingredients item);
 
-    Map<Ingredients, Integer> get();
+
 }
