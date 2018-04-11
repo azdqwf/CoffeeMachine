@@ -18,14 +18,6 @@ public class CoffeeMachine {
             Map<Ingredients, Integer> recipe = drinkType.getRecipe();
             Iterator<Map.Entry<Ingredients, Integer>> ingredientsAmountIterator = ingredientsAmount.entrySet().iterator();
             Iterator<Map.Entry<Ingredients, Integer>> recipeIterator = recipe.entrySet().iterator();
-//
-//            ingredientsAmount.entrySet().stream().filter(ingredientsIntegerEntry -> {
-//                Integer integer = recipe.get(ingredientsIntegerEntry.getKey());
-//                if (integer < ingredientsIntegerEntry.getValue()) {
-//
-//                }
-//
-//            });
             while (ingredientsAmountIterator.hasNext() && recipeIterator.hasNext()) {
                 if (ingredientsAmountIterator.next().getValue() < recipeIterator.next().getValue()) {
                     ok = false;
