@@ -2,23 +2,19 @@ package com.endava.internship.coffee;
 
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 public class IngredientsRepository implements Repository {
 
-    private final static File ingredientsFile =
+    private final  File ingredientsFile =
             new File("C:\\Users\\drihlitchii\\IdeaProjects\\CoffeeMachine\\ingredients.txt");
-    private static BufferedWriter ingredientsOutput;
-    private static BufferedReader ingredientsInput;
+    private  BufferedWriter ingredientsOutput;
     private Map<Ingredients, Integer> ingredientsMap = new EnumMap<>(Ingredients.class);
 
     {
         try {
-
-            ingredientsInput = new BufferedReader(new FileReader(ingredientsFile));
+            BufferedReader ingredientsInput = new BufferedReader(new FileReader(ingredientsFile));
             String line;
             while ((line = ingredientsInput.readLine()) != null) {
                 String[] parts = line.split(" ", 2);
@@ -43,13 +39,14 @@ public class IngredientsRepository implements Repository {
         }
     }
 
+    @Override
     public void create(Map<Ingredients, Integer> map) {
         try {
             ingredientsOutput = new BufferedWriter(new FileWriter(ingredientsFile));
             for (Map.Entry entry : map.entrySet()) {
-                ingredientsOutput.write(entry.getKey().toString() + " ");
-                ingredientsOutput.write(entry.getValue().toString()+"\n");
+                ingredientsOutput.write(entry.getKey().toString() + " " + entry.getValue().toString() + "\n");
             }
+            ingredientsOutput.close();
         } catch (IOException e) {
             try {
                 ingredientsOutput.close();
@@ -67,14 +64,13 @@ public class IngredientsRepository implements Repository {
 
     @Override
     public void update(Ingredients item, Integer value) {
-        ingredientsMap.put(item, value);
+        ingredientsMap.put(item, ingredientsMap.get(item) + value);
         create(ingredientsMap);
     }
 
     @Override
-    public void remove(Ingredients item) {
-        ingredientsMap.remove(item);
+    public void remove(Ingredients ingredient) {
+        ingredientsMap.put(ingredient, 0);
         create(ingredientsMap);
     }
-
 }

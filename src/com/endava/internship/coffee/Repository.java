@@ -8,7 +8,7 @@ public interface Repository {
 
     void update(Ingredients item, Integer value);
 
-    void remove(Ingredients item);
+    void create(Map<Ingredients, Integer> map);
 
-
+    void remove(Ingredients ingredient);
 }
