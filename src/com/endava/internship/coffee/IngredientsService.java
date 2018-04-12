@@ -1,9 +1,11 @@
 package com.endava.internship.coffee;
 
+import java.util.Map;
+
 public class IngredientsService {
     private final IngredientsRepository ingredientsRepository = new IngredientsRepository();
-    void addIngredient(Ingredients ingredient, Integer value){
-        ingredientsRepository.update(ingredient, value);
+    void addIngredients(Map<Ingredients,Integer> newIngredientsMap){
+        ingredientsRepository.update(newIngredientsMap);
     }
     void removeIngredient(Ingredients ingredient){
         ingredientsRepository.remove(ingredient);

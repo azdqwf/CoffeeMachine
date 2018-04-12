@@ -13,6 +13,7 @@ public enum DrinkTypes {
     private Integer price;
     private Map<Ingredients, Integer> recipe;
 
+
     public Map<Ingredients, Integer> getRecipe() {
         return recipe;
     }

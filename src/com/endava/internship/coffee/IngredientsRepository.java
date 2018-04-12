@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class IngredientsRepository implements Repository {
 
-    private final  File ingredientsFile =
+    private final File ingredientsFile =
             new File("C:\\Users\\drihlitchii\\IdeaProjects\\CoffeeMachine\\ingredients.txt");
-    private  BufferedWriter ingredientsOutput;
+    private BufferedWriter ingredientsOutput;
     private Map<Ingredients, Integer> ingredientsMap = new EnumMap<>(Ingredients.class);
 
     {
@@ -58,13 +58,10 @@ public class IngredientsRepository implements Repository {
     }
 
     @Override
-    public Map<Ingredients, Integer> getIngredientsAmount() {
-        return ingredientsMap;
-    }
-
-    @Override
-    public void update(Ingredients item, Integer value) {
-        ingredientsMap.put(item, ingredientsMap.get(item) + value);
+    public void update(Map<Ingredients, Integer> recipeMap) {
+        for (Map.Entry entry : recipeMap.entrySet()) {
+            ingredientsMap.merge((Ingredients) entry.getKey(), (Integer) entry.getValue(), (a, b) -> a - b);
+        }
         create(ingredientsMap);
     }
 
@@ -73,4 +70,14 @@ public class IngredientsRepository implements Repository {
         ingredientsMap.put(ingredient, 0);
         create(ingredientsMap);
     }
+
+    public boolean isEnoughIngredients(DrinkTypes drinkType) {
+        return ingredientsMap.entrySet().stream().allMatch(ingredientsIntegerEntry -> isEnough(drinkType, ingredientsIntegerEntry));
+    }
+
+    private boolean isEnough(DrinkTypes drinkType, Map.Entry<Ingredients, Integer> ingredientsIntegerEntry) {
+        return drinkType.getRecipe().get(ingredientsIntegerEntry.getKey()) <= ingredientsIntegerEntry.getValue();
+    }
+
+
 }

@@ -13,7 +13,7 @@ public class Client {
     }
 
     public DrinkTypes makeDrink(DrinkTypes drink) {
-        DrinkTypes tempDrink = coffeeMachine.makeDrink(drink.getPrice(), drink);
+        DrinkTypes tempDrink = coffeeMachine.makeDrink(balance, drink);
         if (balance < drink.getPrice()) {
             return DrinkTypes.EMPTY;
         }
