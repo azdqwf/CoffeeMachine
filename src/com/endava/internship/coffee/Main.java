@@ -8,7 +8,6 @@ public class Main {
         client.setBalance(20);
         System.out.println(client.makeDrink(DrinkTypes.CAPPUCCINO));
         System.out.println(client.getBalance());
-
         IngredientsService ingredientsService = new IngredientsService();
         ingredientsService.addIngredients(Map.of());
 
